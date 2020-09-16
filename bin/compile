@@ -9,6 +9,8 @@ function log {
     echo "-----> $1"
 }
 
+log "testing cmake..."
+log "$(ls ~/.apt/usr/share/cmake-*)"
 
 log "Downloading drogon..."
 cd "$CACHE_DIR"
