@@ -9,8 +9,6 @@ function log {
     echo "-----> $1"
 }
 
-log "testing cmake..."
-log "$(ls /tmp/build_*/.apt/usr/share/cmake-*)"
 
 log "Downloading drogon..."
 cd "$CACHE_DIR"
@@ -24,6 +22,18 @@ cmake ..
 log "Compiling drogon..."
 make -j"$(nproc)"
 log "Installing drogon..."
+make install
+
+log "Downloading gumbo..."
+cd "$CACHE_DIR"
+git clone https://github.com/google/gumbo-parser
+cd gumbo-parser
+log "Preparing gumbo..."
+./autogen.sh
+./configure
+log "Compiling gumbo..."
+make -j"$(nproc)"
+log "Installing gumbo..."
 make install
 
 log "Compiling program..."
