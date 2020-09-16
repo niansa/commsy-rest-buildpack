@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+set -eo pipefail
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+
+function log {
+    echo "-----> $1"
+}
+
+
+log "Installing base dependencies..."
+apt install qmake libjsoncpp-dev libjson-c-dev uuid-dev openssl libssl-dev zlib1g-dev
+
+log "Downloading drogon..."
+cd "$CACHE_DIR"
+git clone https://github.com/an-tao/drogon
+cd drogon
+git submodule update --init
+mkdir build
+cd build
+log "Preparing drogon..."
+cmake ..
+log "Compiling drogon..."
+make -j"$(nproc)"
+log "Installinf drogon..."
+make install
+
+log "Compiling program..."
+cd "$BUILD_DIR"
+mkdir build
+cd build
+qmake ..
+make -j"$(nproc)"
