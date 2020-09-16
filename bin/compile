@@ -10,7 +10,7 @@ function log {
 }
 
 log "testing cmake..."
-log "$(ls ~/.apt/usr/share/cmake-*)"
+log "$(ls /tmp/build_*/.apt/usr/share/cmake-*)"
 
 log "Downloading drogon..."
 cd "$CACHE_DIR"
